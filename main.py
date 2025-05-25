@@ -1,22 +1,35 @@
-import time as t
+from time import sleep
+import os
+
+LONG_P = ("10m", "50m")
+
+SHORT_P = ("5m", "25m")
+
+CURRENT_P = SHORT_P
+
+def clear_screen():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 # string -> int
-def get_seconds(time): 
-    """Manages user string to get total amount of seconds"""
-    if time.isdigit():
-        return int(time)
+def get_seconds(user_input):
+    """Manages user input to get total amount of seconds"""
+    if user_input.isdigit():
+        return int(user_input)
     else:
-        time = time.lower()
-        if time[-1] == 's': #seconds
-            return int(time[:-1])
-        elif time[-1] == 'm': #minutes
-            return 60*(int(time[:-1]))
-        elif time[-1] == 'h': #hours
-            return 3600*(int(time[:-1]))
-        elif time == 'p': # P stands for pomodoro (50 minutes)
-            return 3000
-        elif time == 'b': # B stands for break (10 minutes)
-            return 600
+        user_input = user_input.lower()
+        if user_input[-1] == 's': #seconds
+            return int(user_input[:-1])
+        elif user_input[-1] == 'm': #minutes
+            return 60*(int(user_input[:-1]))
+        elif user_input[-1] == 'h': #hours
+            return 3600*(int(user_input[:-1]))
+        elif user_input == 'p': # P stands for pomodoro
+            return get_seconds(CURRENT_P[1])
+        elif user_input == 'b': # B stands for break
+            return get_seconds(CURRENT_P[0])
         else:
             print('No proper input given, please try again\n')
             exit()
@@ -27,35 +40,47 @@ assert get_seconds('60s') == 60
 assert get_seconds('5') == 5
 
 # int -> string
-def format_time(hours, minutes, seconds):
+def format_time(h, m, s):
     """Formats time to be properly displayed"""
 
-    timer = f'{hours:02}:{minutes:02}:{seconds:02}'
-    return timer
+    t = f'{h:02}:{m:02}:{s:02}'
+    tomato = f"""⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣤⣄⠉⢹⣿⣀⣿⠉⣭⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠋⣁⣤⡆⠉⢛⡉⠀⢠⣉⣙⣻⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⠟⠉⠛⠛⠛⠛⠋⣽⣇⣴⡿⠻⢶⣬⣿⣍⠉⠁⠀⠈⠻⣿⣿⣿⣿
+⣿⣿⣿⡿⠁⢀⣴⣾⠟⠛⠀⢠⡿⠟⠁⠀⠀⠀⠈⠉⠛⠃⠀⠀⠀⠀⠹⣿⣿⣿
+⣿⣿⣿⠁⢠⣿⠏⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿
+⣿⣿⡇⢀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+⣿⣿⡇⢸⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+⣿⣿⡇⠀⠁⠀⠀⠀⠀   {t}⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣿
+⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿
+⣿⣿⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"""
 
-assert format_time(0,0,20) == f'00:00:20'
-assert format_time(30,5,20) == f'30:05:20'
+    return tomato
 
 # string -> None
-def show_time(timer):
+def show_time(t):
     """Takes formatted time to display it to the screen and adds a second of
     delay"""
-
-    print(timer, end='\r')
-    t.sleep(1)
+    clear_screen()
+    print(t, end='\r')
+    sleep(1)
 
 # int, string -> int
-def update_val(time, suffix='s'):
+def update_val(t, suffix='s'):
     """time is int, and suffix is either 's', 'm' or 'h'.
     It will calculate the amount of time in terms of the giving suffix"""
-    
     suffix = suffix.lower()
     if suffix == 's':
-        return time%60
+        return t%60
     elif suffix == 'm':
-        return (time//60) % 60
-    else: 
-        return time//3600
+        return (t//60) % 60
+    else:
+        return t//3600
 
 assert update_val(70, 's') == 10
 assert update_val(360, 'm') == 6
@@ -64,15 +89,15 @@ assert update_val(325) == 25
 
 
 raw_time = input('Enter the time along with a suffix (h/m/s):\n')
-time = get_seconds(raw_time)
+timer_seconds = get_seconds(raw_time)
 message = "Time's up"
 
-while time != 0:
-    seconds = update_val(time)
-    minutes = update_val(time, 'm')
-    hours = update_val(time, 'h')
+while timer_seconds >= 0:
+    seconds = update_val(timer_seconds)
+    minutes = update_val(timer_seconds, 'm')
+    hours = update_val(timer_seconds, 'h')
     timer = format_time(hours, minutes, seconds)
     show_time(timer)
-    time -= 1
+    timer_seconds -= 1
 
 print(message)
