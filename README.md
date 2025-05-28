@@ -10,6 +10,6 @@ The main.py is run from the terminal and will ask the user for the amount of sec
 | 10s | 00:00:10 |
 | 10m | 00:10:00 |
 | 10h | 10:00:00 |
-| p | 00:25:10 or 00:50:00|
-| b | 00:05:10 or 00:10:00|
+| p | 00:25:00 or 00:50:00|
+| b | 00:05:00 or 00:10:00|
 
