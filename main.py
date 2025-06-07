@@ -6,6 +6,8 @@ LONG_P: tuple = ("10m", "50m")
 SHORT_P: tuple = ("5m", "25m")
 CURRENT_P: tuple = SHORT_P
 
+BAR_REVERSE = False
+
 FINAL_MESSAGE: str = "Time's up"
 
 ZERO = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
@@ -19,9 +21,14 @@ SEVENTY = "██████████████▒▒▒▒▒▒"
 EIGHTY = "████████████████▒▒▒▒"
 NINETY = "██████████████████▒▒"
 HUNDRED = "████████████████████"
-BAR = [ZERO, TEN, TWENTY, THIRTY, FORTY, FIFTY, SIXTY, SEVENTY, EIGHTY, NINETY,
+bar = [ZERO, TEN, TWENTY, THIRTY, FORTY, FIFTY, SIXTY, SEVENTY, EIGHTY, NINETY,
     HUNDRED]
-#BAR.reverse()
+
+if BAR_REVERSE:
+    bar.reverse()
+    bar.append(ZERO)
+else:
+    bar.append(HUNDRED)
 
 def clear_screen():
     if os.name == 'nt':
@@ -130,7 +137,7 @@ while timer_seconds >= 0:
     hours = update_val(timer_seconds, 'h')
 
     percentage = get_percentage(total_time, timer_seconds)
-    current_bars = (BAR[percentage], BAR[percentage - 1])
+    current_bars = (bar[percentage], bar[percentage + 1])
 
     show_time(seconds, minutes, hours, current_bars)
     timer_seconds -= 1
