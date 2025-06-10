@@ -21,3 +21,9 @@ The 'p' and 'b' timers can be changed to the long version of a Pomodoro, 50 minu
 ## Loading bar
 
 By default, the loading bar is decreasing as the time goes by. However, if the user prefers the bar to loading bar to increase instead, the constant BAR_REVERSE should be set to 'True'
+
+# Screenshots
+## Decreasing bar
+![Decreasing bar](assets/decreasing.gif)
+## Increasing bar
+![Increasing bar](assets/increasing.gif)
