@@ -1,6 +1,7 @@
+import os
+import sys
 from time import sleep
 from typing import Optional
-import os
 
 LONG_P: tuple = ("10m", "50m")
 SHORT_P: tuple = ("5m", "25m")
@@ -127,7 +128,11 @@ assert update_val(70, 's') == 10
 assert update_val(360, 'm') == 6
 assert update_val(3789, 'h') == 1
 
-raw_time = input('Enter the time along with a suffix (h/m/s):\n')
+if len(sys.argv) > 1:
+    raw_time = sys.argv[1]
+else:
+    raw_time = input('Enter the time along with a suffix (h/m/s):\n')
+
 timer_seconds = get_seconds(raw_time)
 total_time = timer_seconds
 
