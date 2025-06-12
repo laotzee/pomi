@@ -2,7 +2,7 @@
 Pomi is a Python script that displays a timer with ASCII art of a tomato and a loading bar using the time the user gives as input.
 
 # How to use
-The main.py is run from the terminal and will ask the user for the amount of seconds, minutes, or hours to set the timer. As input, the script takes an integer that can be accompanied by a desired prefixed or, if none is given, defaults to seconds. Additionally, "p" or "b" can be used as input as well, standing for "Pomodoro" and "break" respectively setting the timer to the accustomed 25 minutes of work and 5 minutes of break. The following table illustrates the possible input for the script.
+The main.py is run from the terminal along with a valid time input. If the latter is not given the script will ask the user for the amount of seconds, minutes, or hours to set the timer. As input, the script takes an integer that can be accompanied by a desired prefixed or, if none is given, defaults to seconds. Additionally, "p" or "b" can be used as input as well, standing for "Pomodoro" and "break" respectively setting the timer to the accustomed 25 minutes of work and 5 minutes of break. The following table illustrates the possible input for the script.
 
 | Example | Result |
 |----------|----------|
