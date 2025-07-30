@@ -51,28 +51,32 @@ assert get_percentage(100, 50) == 5
 assert get_percentage(100, 25) == 2
 assert get_percentage(100, 99) == 9
 
+def str_to_seconds(multiplier, time):
+
+    return multiplier * int(time)
+
 def get_seconds(user_input: str) -> Optional[int]:
     """Manages user input to get total amount of seconds"""
-    if user_input.isdigit():
-        return int(user_input)
-    else:
-        user_input = user_input.lower()
 
-        if user_input[-1] == 's': #seconds
-            return int(user_input[:-1])
-        elif user_input[-1] == 'm': #minutes
-            return 60*(int(user_input[:-1]))
-        elif user_input[-1] == 'h': #hours
-            return 3600*(int(user_input[:-1]))
+    user_input = user_input.lower()
 
-        elif user_input == 'p': # P stands for pomodoro
+    if user_input.isnumeric():
+        return  str_to_seconds(1, user_input)
+    elif user_input.isalpha():
+        if user_input == 'p': # P stands for pomodoro
             return get_seconds(CURRENT_P[1])
         elif user_input == 'b': # B stands for break
             return get_seconds(CURRENT_P[0])
+    elif user_input.isalnum() and len(user_input) > 1 and user_input[:-1].isnumeric():
+        if user_input[-1] == 's': #seconds
+            return str_to_seconds(1, user_input[:-1])
+        elif user_input[-1] == 'm': #minutes
+            return str_to_seconds(60, user_input[:-1])
+        elif user_input[-1] == 'h': #hours
+            return str_to_seconds(3600, user_input[:-1])
 
-        else:
-            print('No proper input given, please try again\n')
-            exit()
+    print('Pomi needs proper input to work, please try again')
+    return None
 
 assert get_seconds('1h') == 3600
 assert get_seconds('3m') == 180
@@ -136,6 +140,8 @@ if __name__ == '__main__':
         raw_time = input('Enter the time along with a suffix (h/m/s):\n')
 
     timer_seconds = get_seconds(raw_time)
+    if not timer_seconds:
+        exit()
     total_time = timer_seconds
 
     while timer_seconds >= 0:
