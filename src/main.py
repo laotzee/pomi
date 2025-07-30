@@ -128,23 +128,25 @@ assert update_val(70, 's') == 10
 assert update_val(360, 'm') == 6
 assert update_val(3789, 'h') == 1
 
-if len(sys.argv) > 1:
-    raw_time = sys.argv[1]
-else:
-    raw_time = input('Enter the time along with a suffix (h/m/s):\n')
+if __name__ == '__main__':
 
-timer_seconds = get_seconds(raw_time)
-total_time = timer_seconds
+    if len(sys.argv) > 1:
+        raw_time = sys.argv[1]
+    else:
+        raw_time = input('Enter the time along with a suffix (h/m/s):\n')
 
-while timer_seconds >= 0:
-    seconds = update_val(timer_seconds, 's')
-    minutes = update_val(timer_seconds, 'm')
-    hours = update_val(timer_seconds, 'h')
+    timer_seconds = get_seconds(raw_time)
+    total_time = timer_seconds
 
-    percentage = get_percentage(total_time, timer_seconds)
-    current_bars = (bar[percentage], bar[percentage + 1])
+    while timer_seconds >= 0:
+        seconds = update_val(timer_seconds, 's')
+        minutes = update_val(timer_seconds, 'm')
+        hours = update_val(timer_seconds, 'h')
 
-    show_time(seconds, minutes, hours, current_bars)
-    timer_seconds -= 1
+        percentage = get_percentage(total_time, timer_seconds)
+        current_bars = (bar[percentage], bar[percentage + 1])
 
-print(FINAL_MESSAGE)
+        show_time(seconds, minutes, hours, current_bars)
+        timer_seconds -= 1
+
+    print(FINAL_MESSAGE)
