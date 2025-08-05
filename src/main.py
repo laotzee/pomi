@@ -46,11 +46,6 @@ def get_percentage(total_time: int, current_time: int) -> int:
     else:
         return int(percentage[:1])
 
-assert get_percentage(100, 100) == 10
-assert get_percentage(100, 50) == 5
-assert get_percentage(100, 25) == 2
-assert get_percentage(100, 99) == 9
-
 def str_to_seconds(multiplier, time):
 
     return multiplier * int(time)
@@ -77,11 +72,6 @@ def get_seconds(user_input: str) -> Optional[int]:
 
     print('Pomi needs proper input to work, please try again')
     return None
-
-assert get_seconds('1h') == 3600
-assert get_seconds('3m') == 180
-assert get_seconds('60s') == 60
-assert get_seconds('5') == 5
 
 def format_time(h: int, m: int, s: int, bar: str) -> str:
     """Formats time to be properly displayed"""
@@ -127,10 +117,6 @@ def update_val(t: int, suffix: str) -> int:
         return (t//60) % 60
     else:
         return t//3600
-
-assert update_val(70, 's') == 10
-assert update_val(360, 'm') == 6
-assert update_val(3789, 'h') == 1
 
 if __name__ == '__main__':
 

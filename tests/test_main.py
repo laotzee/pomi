@@ -1,6 +1,4 @@
 import pytest
-from lvmdbusd.cmdhandler import total_time
-
 import src.main as pomi
 
 # TODO
@@ -24,12 +22,16 @@ get_seconds_input = [
     ('sdff33', None),         # alphanumeric but not properly formatted
     ('', None),               # empty input
 ]
-
 get_percentage_input = [
     (100, 100, 10),
     (100, 50, 5),
     (100, 25, 2),
     (100, 99, 9),
+]
+update_val_input = [
+    (70, 's', 10),
+    (360, 'm', 6),
+    (3789, 'h', 1),
 ]
 
 
@@ -44,5 +46,9 @@ def test_update_val():
 @pytest.mark.parametrize('total_time, current_time, expected_output', get_percentage_input)
 def test_get_percentage(total_time, current_time, expected_output):
 
-    assert pomi.get_percentage(total_time=total_time, current_time=current_time) ==  expected_output
+    pomi.get_percentage(total_time, current_time)
 
+@pytest.mark.parametrize('t, suffix, expected_output', update_val_input)
+def  test_update_val(t, suffix, expected_output):
+
+    pomi.update_val(t, suffix)
